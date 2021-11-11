@@ -42,22 +42,17 @@ fun CharacterDetailScreen(characterId: Int, onUpClick: () -> Unit) {
             CharacterDetailScreen(it, onUpClick)
     }
 
-
 }
 
 @ExperimentalMaterialApi
 @Composable
 fun CharacterDetailScreen(character: Character, onUpClick: () -> Unit) {
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = character.name) },
-                navigationIcon = { ArrowBackIcon(onUpClick)},
-                actions = { AppBarOverflowMenu(urls = character.urls) }
-            )
-        }
-    ) { padding ->
+    CharacterDetailScaffold(
+        character = character,
+        onUpClick = onUpClick
+    )
+    { padding ->
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()

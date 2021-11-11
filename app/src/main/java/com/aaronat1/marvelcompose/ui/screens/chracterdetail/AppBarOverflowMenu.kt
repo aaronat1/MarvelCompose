@@ -11,6 +11,7 @@ import com.aaronat1.marvelcompose.data.network.entities.Url
 @ExperimentalMaterialApi
 @Composable
 fun AppBarOverflowMenu(urls: List<Url>, modifier: Modifier = Modifier) {
+    if (urls.isEmpty()) return
 
     var showMenu by remember { mutableStateOf(false) }
     var uriHandler = LocalUriHandler.current

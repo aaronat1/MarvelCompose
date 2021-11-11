@@ -24,43 +24,66 @@ import com.aaronat1.marvelcompose.data.repositories.CharactersRepository
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.stringResource
+import coil.annotation.ExperimentalCoilApi
+import com.aaronat1.marvelcompose.R
+import com.aaronat1.marvelcompose.ui.navigation.ArrowBackIcon
 
+@ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
-fun CharacterDetailScreen(id: Int) {
+fun CharacterDetailScreen(characterId: Int, onUpClick: () -> Unit) {
     var characterState by remember { mutableStateOf<Character?>(null) }
     LaunchedEffect(Unit) {
-        characterState =  CharactersRepository.findCharacter(id)
+        characterState =  CharactersRepository.findCharacter(characterId)
     }
-    characterState?.let { c -> CharacterDetailScreen(c) }
+    characterState?.let {
+            CharacterDetailScreen(it, onUpClick)
+    }
 
 
 }
 
 @ExperimentalMaterialApi
 @Composable
-fun CharacterDetailScreen(character: Character) {
-    LazyColumn(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        item {
-            Header(character)
+fun CharacterDetailScreen(character: Character, onUpClick: () -> Unit) {
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = character.name) },
+                navigationIcon = { ArrowBackIcon(onUpClick)},
+                actions = { AppBarOverflowMenu(urls = character.urls) }
+            )
         }
-        section(Icons.Default.Collections, "Series", character.series)
-        section(Icons.Default.Event, "Events", character.events)
-        section(Icons.Default.Book, "Comic", character.comics)
-        section(Icons.Default.Bookmark, "Stories", character.stories)
+    ) { padding ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(padding)
+        ) {
+            item {
+                Header(character)
+            }
+            section(Icons.Default.Collections, R.string.Series, character.series)
+            section(Icons.Default.Event, R.string.Events, character.events)
+            section(Icons.Default.Book, R.string.Comics, character.comics)
+            section(Icons.Default.Bookmark, R.string.Stories, character.stories)
+        }
+
     }
+
 }
 
 @ExperimentalMaterialApi
-fun LazyListScope.section(icon: ImageVector, name: String, items: List<Reference>) {
+fun LazyListScope.section(icon: ImageVector, name: Int, items: List<Reference>) {
 
     if ( items.isEmpty()) return
 
     item {
         Text(
-            text = name,
+            text = stringResource(id = name),
             style = MaterialTheme.typography.h5,
             modifier = Modifier.padding(16.dp)
         )
@@ -104,6 +127,7 @@ fun Header(character: Character) {
     }
 }
 
+/*
 @ExperimentalMaterialApi
 @Preview(widthDp = 400, heightDp = 700)
 @Composable
@@ -119,6 +143,6 @@ fun CharacterDetailScreenPreview() {
         listOf(Reference("Comic1"), Reference("Comic2")),
     )
     MarvelApp {
-        CharacterDetailScreen(character)
+        CharacterDetailScreen(character = character, onUpClick = {})
     }
-}
+}*/

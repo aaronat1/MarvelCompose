@@ -33,6 +33,7 @@ fun NetworkCharacter.asCharacter() : Character {
         comics,
         series,
         events,
-        stories
+        stories,
+        urls
     )
 }

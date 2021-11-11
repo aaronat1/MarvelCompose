@@ -1,5 +1,7 @@
 package com.aaronat1.marvelcompose.data.entities
 
+import com.aaronat1.marvelcompose.data.network.entities.Url
+
 data class Character(
     val id: Int,
     val name: String,
@@ -9,4 +11,5 @@ data class Character(
     val events: List<Reference>,
     val stories: List<Reference>,
     val series: List<Reference>,
+    val urls: List<Url>
 )

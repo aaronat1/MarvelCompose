@@ -3,7 +3,8 @@ package com.aaronat1.marvelcompose.data.repositories
 import com.aaronat1.marvelcompose.data.network.ApiClient
 import com.aaronat1.marvelcompose.data.entities.Character
 import com.aaronat1.marvelcompose.data.entities.Reference
-import com.aaronat1.marvelcompose.data.network.entities.Character as NetworkCharacter
+import com.aaronat1.marvelcompose.data.entities.Url
+import com.aaronat1.marvelcompose.data.network.entities.ApiCharacter as NetworkCharacter
 import com.aaronat1.marvelcompose.data.network.entities.asString
 
 object CharactersRepository {
@@ -24,6 +25,7 @@ fun NetworkCharacter.asCharacter() : Character {
     val series = series.items.map { Reference(it.name) }
     val events = events.items.map { Reference(it.name) }
     val stories = stories.items.map { Reference(it.name) }
+    val urls = urls.map { Url(it.type, it.url) }
 
     return Character(
         id,

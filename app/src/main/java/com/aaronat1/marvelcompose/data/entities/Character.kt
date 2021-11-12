@@ -1,6 +1,5 @@
 package com.aaronat1.marvelcompose.data.entities
 
-import com.aaronat1.marvelcompose.data.network.entities.Url
 
 data class Character(
     val id: Int,

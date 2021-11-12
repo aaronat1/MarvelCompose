@@ -16,7 +16,7 @@ import com.aaronat1.marvelcompose.ui.screens.chracters.CharactersScreen
 import com.aaronat1.marvelcompose.ui.theme.MarvelComposeTheme
 
 
-
+@ExperimentalMaterialApi
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 class MainActivity : ComponentActivity() {
@@ -32,15 +32,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun MarvelApp(content: @Composable () -> Unit) {
-    MarvelComposeTheme {
-        // A surface container using the 'background' color from the theme
-        Surface(color = MaterialTheme.colors.background) {
-            content()
-        }
-    }
-}
+
 
 @Composable
 fun Greeting(name: String) {

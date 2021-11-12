@@ -1,7 +1,6 @@
 package com.aaronat1.marvelcompose.data.network.entities
 
-data class Story(
+data class ApiComic(
     val name: String,
-    val resourceURI: String,
-    val type: String
+    val resourceURI: String
 )

@@ -44,13 +44,14 @@ fun CharacterDetailScreen(characterId: Int, onUpClick: () -> Unit) {
 
 }
 
+@ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
 fun CharacterDetailScreen(character: Character, onUpClick: () -> Unit) {
 
     CharacterDetailScaffold(
         character = character,
-        onUpClick = onUpClick
+        onUpClick = onUpClick,
     )
     { padding ->
         LazyColumn(

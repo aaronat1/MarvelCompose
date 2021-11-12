@@ -1,8 +1,8 @@
 package com.aaronat1.marvelcompose.data.network.entities
 
-data class Events(
+data class ApiStories(
     val available: Int,
     val collectionURI: String,
-    val items: List<Event>,
+    val items: List<ApiStory>,
     val returned: Int
 )

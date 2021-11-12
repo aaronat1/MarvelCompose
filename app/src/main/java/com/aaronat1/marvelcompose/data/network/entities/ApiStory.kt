@@ -1,6 +1,7 @@
 package com.aaronat1.marvelcompose.data.network.entities
 
-data class Event(
+data class ApiStory(
     val name: String,
-    val resourceURI: String
+    val resourceURI: String,
+    val type: String
 )

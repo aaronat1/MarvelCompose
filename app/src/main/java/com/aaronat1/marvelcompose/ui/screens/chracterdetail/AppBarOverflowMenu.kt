@@ -6,11 +6,12 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
-import com.aaronat1.marvelcompose.data.network.entities.Url
+import com.aaronat1.marvelcompose.data.entities.Url
 
 @ExperimentalMaterialApi
 @Composable
 fun AppBarOverflowMenu(urls: List<Url>, modifier: Modifier = Modifier) {
+
     if (urls.isEmpty()) return
 
     var showMenu by remember { mutableStateOf(false) }
@@ -31,9 +32,7 @@ fun AppBarOverflowMenu(urls: List<Url>, modifier: Modifier = Modifier) {
                     uriHandler.openUri(it.url)
                     showMenu = false
                 }) {
-                    ListItem(
-                        text = { Text(it.type) }
-                    )
+                    ListItem(text = { Text(it.type) })
                 }
             }
         }

@@ -1,6 +1,5 @@
 package com.aaronat1.marvelcompose.data.entities
 
-
 data class Character(
     val id: Int,
     val name: String,

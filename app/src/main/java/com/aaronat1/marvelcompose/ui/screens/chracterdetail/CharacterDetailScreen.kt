@@ -28,6 +28,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import coil.annotation.ExperimentalCoilApi
 import com.aaronat1.marvelcompose.R
+import com.aaronat1.marvelcompose.ui.commons.LoadingView
 import com.aaronat1.marvelcompose.ui.navigation.ArrowBackIcon
 
 @ExperimentalCoilApi
@@ -38,6 +39,7 @@ fun CharacterDetailScreen(characterId: Int, onUpClick: () -> Unit) {
     LaunchedEffect(Unit) {
         characterState =  CharactersRepository.findCharacter(characterId)
     }
+    if (characterState == null) return LoadingView()
     characterState?.let {
             CharacterDetailScreen(it, onUpClick)
     }
@@ -48,12 +50,12 @@ fun CharacterDetailScreen(characterId: Int, onUpClick: () -> Unit) {
 @ExperimentalMaterialApi
 @Composable
 fun CharacterDetailScreen(character: Character, onUpClick: () -> Unit) {
-
     CharacterDetailScaffold(
         character = character,
         onUpClick = onUpClick,
     )
     { padding ->
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -69,7 +71,6 @@ fun CharacterDetailScreen(character: Character, onUpClick: () -> Unit) {
         }
 
     }
-
 }
 
 @ExperimentalMaterialApi

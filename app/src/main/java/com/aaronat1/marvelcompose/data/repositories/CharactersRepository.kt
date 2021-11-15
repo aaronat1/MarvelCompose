@@ -1,41 +1,29 @@
 package com.aaronat1.marvelcompose.data.repositories
 
-import com.aaronat1.marvelcompose.data.network.ApiClient
 import com.aaronat1.marvelcompose.data.entities.Character
-import com.aaronat1.marvelcompose.data.entities.Reference
-import com.aaronat1.marvelcompose.data.entities.Url
-import com.aaronat1.marvelcompose.data.network.entities.ApiCharacter as NetworkCharacter
-import com.aaronat1.marvelcompose.data.network.entities.asString
+import com.aaronat1.marvelcompose.data.network.ApiClient
 
-object CharactersRepository {
+object CharactersRepository : Repository<Character>() {
 
-    suspend fun getCharacters(): List<Character> {
-        val result = ApiClient.charactersService.getCharacters(0, 100)
-        return result.data.results.map {it.asCharacter()}
+    suspend fun get(): List<Character> = super.get {
+        ApiClient
+            .charactersService
+            .getCharacters(0, 100)
+            .data
+            .results
+            .map { it.asCharacter() }
     }
 
-    suspend fun findCharacter(characterId: Int) : Character {
-        val result = ApiClient.charactersService.findCharacter(characterId)
-        return result.data.results.first().asCharacter()
-    }
-}
-
-fun NetworkCharacter.asCharacter() : Character {
-    val comics = comics.items.map { Reference(it.name) }
-    val series = series.items.map { Reference(it.name) }
-    val events = events.items.map { Reference(it.name) }
-    val stories = stories.items.map { Reference(it.name) }
-    val urls = urls.map { Url(it.type, it.url) }
-
-    return Character(
+    suspend fun find(id: Int): Character = super.find(
         id,
-        name,
-        description,
-        thumbnail.asString(),
-        comics,
-        series,
-        events,
-        stories,
-        urls
+        findActionRemote = {
+            ApiClient
+                .charactersService
+                .findCharacter(id)
+                .data
+                .results
+                .first()
+                .asCharacter()
+        }
     )
 }

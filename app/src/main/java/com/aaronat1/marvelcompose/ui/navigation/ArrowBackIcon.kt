@@ -14,6 +14,5 @@ fun ArrowBackIcon(onUpClick: () -> Unit) {
             imageVector = Icons.Default.ArrowBack,
             contentDescription = null
         )
-
     }
 }

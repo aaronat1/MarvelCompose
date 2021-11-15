@@ -1,4 +1,4 @@
-package com.aaronat1.marvelcompose.ui.screens.chracterdetail
+package com.aaronat1.marvelcompose.ui.navigation
 
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton

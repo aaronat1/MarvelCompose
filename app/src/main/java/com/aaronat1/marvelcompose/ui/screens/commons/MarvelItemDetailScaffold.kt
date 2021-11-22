@@ -1,6 +1,7 @@
 package com.aaronat1.marvelcompose.ui.screens.commons
 
 import android.content.Context
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.shape.CircleShape
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ShareCompat
 import com.aaronat1.marvelcompose.data.entities.MarvelItem
@@ -27,6 +29,13 @@ fun MarvelItemDetailScaffold(
     val context = LocalContext.current
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { },
+                actions = { AppBarOverflowMenu(marvelItem.urls) },
+                modifier = Modifier.background(color = Color(android.graphics.Color.TRANSPARENT)),
+            )
+        },
         floatingActionButton = {
             if (marvelItem.urls.isNotEmpty()) {
                 FloatingActionButton(

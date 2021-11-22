@@ -20,6 +20,12 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import com.aaronat1.marvelcompose.ui.screens.*
+import com.aaronat1.marvelcompose.ui.screens.characters.CharacterDetailScreen
+import com.aaronat1.marvelcompose.ui.screens.characters.CharactersScreen
+import com.aaronat1.marvelcompose.ui.screens.comics.ComicDetailScreen
+import com.aaronat1.marvelcompose.ui.screens.comics.ComicsScreen
+import com.aaronat1.marvelcompose.ui.screens.events.EventDetailScreen
+import com.aaronat1.marvelcompose.ui.screens.events.EventsScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalPagerApi
@@ -63,11 +69,7 @@ private fun NavGraphBuilder.charactersNav(navController: NavController) {
         }
 
         composable(NavCommand.ContentTypeDetail(Feature.CHARACTERS)) {
-            val id = it.findArg<Int>(NavArg.ItemId)
-            CharacterDetailScreen(
-                characterId = id,
-                onUpClick = { navController.popBackStack() }
-            )
+            CharacterDetailScreen()
         }
     }
 }
@@ -92,11 +94,7 @@ private fun NavGraphBuilder.comicsNav(navController: NavController) {
         }
 
         composable(NavCommand.ContentTypeDetail(Feature.COMICS)) {
-            val id = it.findArg<Int>(NavArg.ItemId)
-            ComicDetailScreen(
-                comicId = id,
-                onUpClick = { navController.popBackStack() }
-            )
+            ComicDetailScreen()
         }
     }
 }
@@ -120,10 +118,7 @@ private fun NavGraphBuilder.eventsNav(navController: NavController) {
         }
 
         composable(NavCommand.ContentTypeDetail(Feature.EVENTS)) {
-            val id = it.findArg<Int>(NavArg.ItemId)
-            EventDetailScreen(
-                eventId = id
-            )
+            EventDetailScreen()
         }
     }
 }

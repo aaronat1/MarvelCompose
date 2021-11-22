@@ -9,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -27,24 +28,35 @@ import com.aaronat1.marvelcompose.ui.screens.commons.MarvelItemDetailScaffold
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
-fun MarvelItemDetailScreen(marvelItem: MarvelItem) {
-    MarvelItemDetailScaffold(
-        marvelItem = marvelItem
-    ) { padding ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(padding)
-        ) {
-            item {
-                Header(marvelItem = marvelItem)
-            }
-            marvelItem.references.forEach {
-                val (icon, @StringRes stringRes) = it.type.createUiData()
-                section(icon, stringRes, it.references)
+fun MarvelItemDetailScreen(loading: Boolean = false, marvelItem: MarvelItem? ) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        if (loading) {
+            CircularProgressIndicator()
+        }
+        if (marvelItem != null) {
+            MarvelItemDetailScaffold(
+                marvelItem = marvelItem
+            ) { padding ->
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(padding)
+                ) {
+                    item {
+                        Header(marvelItem = marvelItem)
+                    }
+                    marvelItem.references.forEach {
+                        val (icon, @StringRes stringRes) = it.type.createUiData()
+                        section(icon, stringRes, it.references)
+                    }
+                }
             }
         }
     }
+
 }
 
 @ExperimentalCoilApi

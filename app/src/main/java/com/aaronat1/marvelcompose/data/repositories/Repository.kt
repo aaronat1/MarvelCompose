@@ -1,7 +1,7 @@
 package com.aaronat1.marvelcompose.data.repositories
 
+
 import com.aaronat1.marvelcompose.data.entities.*
-import kotlinx.coroutines.withTimeout
 
 abstract class Repository<T : MarvelItem> {
 
@@ -9,9 +9,7 @@ abstract class Repository<T : MarvelItem> {
 
     internal suspend fun get(getAction: suspend () -> List<T>): Result<List<T>> = tryCall {
             if (cache.isEmpty()) {
-                withTimeout(500) {
-                    cache = getAction()
-                }
+                cache = getAction()
             }
             cache
         }

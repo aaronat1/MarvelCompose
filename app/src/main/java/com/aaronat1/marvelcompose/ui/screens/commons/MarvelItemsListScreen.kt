@@ -17,18 +17,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.aaronat1.marvelcompose.data.entities.MarvelItem
+import com.aaronat1.marvelcompose.data.entities.Result
 import com.aaronat1.marvelcompose.ui.MarvelScreen
 
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
-fun <T : MarvelItem> MarvelItemsListScreen(loading: Boolean = false, items: List<T>, onClick: (T) -> Unit) {
-    MarvelItemsList(
-        loading = loading,
-        items = items,
-        onItemClick = onClick,
-        modifier = Modifier.padding()
-    )
+fun <T : MarvelItem> MarvelItemsListScreen(
+    loading: Boolean = false,
+    items: Result<List<T>>,
+    onClick: (T) -> Unit) {
+    items.fold( { ErrorMessage(it)}) {
+        MarvelItemsList(
+            loading = loading,
+            items = it,
+            onItemClick = onClick,
+            modifier = Modifier.padding()
+        )
+    }
+
 }
 
 @ExperimentalCoilApi

@@ -1,13 +1,11 @@
 package com.aaronat1.marvelcompose.ui.screens.events
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import arrow.core.right
 import com.aaronat1.marvelcompose.data.entities.Event
+import com.aaronat1.marvelcompose.data.entities.Result
 import com.aaronat1.marvelcompose.data.repositories.EventsRepository
-import com.aaronat1.marvelcompose.ui.screens.characters.CharactersViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,5 +23,8 @@ class EventsViewModel : ViewModel() {
         }
     }
 
-    data class UiState(val loading: Boolean = false, val items: List<Event> = emptyList())
+    data class UiState(
+        val loading: Boolean = false,
+        val items: Result<List<Event>> = emptyList<Event>().right()
+    )
 }

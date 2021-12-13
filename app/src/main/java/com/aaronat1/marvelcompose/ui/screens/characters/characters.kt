@@ -26,5 +26,8 @@ fun CharactersScreen(onClick: (Character) -> Unit, viewModel: CharactersViewMode
 @Composable
 fun CharacterDetailScreen(viewModel: CharacterDetailViewModel = viewModel()) {
     val state by viewModel.state.collectAsState()
-MarvelItemDetailScreen(loading = state.loading, marvelItem = state.character)
+    MarvelItemDetailScreen(
+        loading = state.loading,
+        marvelItem = state.character
+    )
 }

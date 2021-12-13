@@ -23,12 +23,14 @@ import com.aaronat1.marvelcompose.R
 import com.aaronat1.marvelcompose.data.entities.MarvelItem
 import com.aaronat1.marvelcompose.data.entities.Reference
 import com.aaronat1.marvelcompose.data.entities.ReferenceList
+import com.aaronat1.marvelcompose.data.entities.Result
+import com.aaronat1.marvelcompose.ui.screens.commons.ErrorMessage
 import com.aaronat1.marvelcompose.ui.screens.commons.MarvelItemDetailScaffold
 
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
-fun MarvelItemDetailScreen(loading: Boolean = false, marvelItem: MarvelItem? ) {
+fun MarvelItemDetailScreen(loading: Boolean = false, marvelItem: Result<MarvelItem?> ) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -36,25 +38,28 @@ fun MarvelItemDetailScreen(loading: Boolean = false, marvelItem: MarvelItem? ) {
         if (loading) {
             CircularProgressIndicator()
         }
-        if (marvelItem != null) {
-            MarvelItemDetailScaffold(
-                marvelItem = marvelItem
-            ) { padding ->
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(padding)
-                ) {
-                    item {
-                        Header(marvelItem = marvelItem)
-                    }
-                    marvelItem.references.forEach {
-                        val (icon, @StringRes stringRes) = it.type.createUiData()
-                        section(icon, stringRes, it.references)
+        marvelItem.fold({ ErrorMessage(it) }) { item ->
+            if (item != null) {
+                MarvelItemDetailScaffold(
+                    marvelItem = item
+                ) { padding ->
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(padding)
+                    ) {
+                        item {
+                            Header(marvelItem = item)
+                        }
+                        item.references.forEach {
+                            val (icon, @StringRes stringRes) = it.type.createUiData()
+                            section(icon, stringRes, it.references)
+                        }
                     }
                 }
             }
         }
+
     }
 
 }

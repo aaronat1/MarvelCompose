@@ -9,6 +9,7 @@ import com.aaronat1.marvelcompose.data.entities.Character
 import com.aaronat1.marvelcompose.ui.screens.commons.MarvelItemsListScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
 
+@ExperimentalMaterialApi
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable

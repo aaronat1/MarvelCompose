@@ -8,9 +8,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -18,7 +20,10 @@ import coil.annotation.ExperimentalCoilApi
 import com.aaronat1.marvelcompose.R
 import com.aaronat1.marvelcompose.ui.navigation.*
 import com.aaronat1.marvelcompose.ui.theme.MarvelComposeTheme
+import com.aaronat1.marvelcompose.ui.theme.RedDark
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.systemuicontroller.SystemUiController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.launch
 
 @ExperimentalPagerApi
@@ -75,10 +80,22 @@ fun MarvelApp() {
                 Navigation(appState.navController)
             }
         }
+        SetStatusBarColorEffect()
     }
+
 }
 
-
+@Composable
+fun SetStatusBarColorEffect(
+    color: Color = MaterialTheme.colors.primaryVariant,
+    systemUiController: SystemUiController = rememberSystemUiController()
+) {
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = color
+        )
+    }
+}
 
 @Composable
 fun MarvelScreen(content: @Composable () -> Unit) {

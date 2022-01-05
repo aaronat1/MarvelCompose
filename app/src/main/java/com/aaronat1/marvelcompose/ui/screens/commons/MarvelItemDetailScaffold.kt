@@ -39,7 +39,8 @@ fun MarvelItemDetailScaffold(
         floatingActionButton = {
             if (marvelItem.urls.isNotEmpty()) {
                 FloatingActionButton(
-                    onClick = { shareCharacter(context, marvelItem.title, marvelItem.urls.first()) }
+                    onClick = { shareCharacter(context, marvelItem.title, marvelItem.urls.first()) },
+                    shape = MaterialTheme.shapes.small
                 ) {
                     Icon(imageVector = Icons.Default.Share, contentDescription = null)
                 }
@@ -49,7 +50,7 @@ fun MarvelItemDetailScaffold(
         isFloatingActionButtonDocked = true,
         bottomBar = {
             BottomAppBar(
-                cutoutShape = CircleShape
+                cutoutShape = MaterialTheme.shapes.small
             ) {
                 AppBarIcon(imageVector = Icons.Default.Menu, onClick = { })
                 Spacer(modifier = Modifier.weight(1f))
